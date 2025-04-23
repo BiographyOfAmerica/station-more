@@ -21,9 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (QuickLink == 1) {
                             // wr-res-a page
                             linkPrefix = atob('aHR0cHM6Ly9iaW9ncmFwaHlvZmFtZXJpY2EuZ2l0aHViLmlvL3dyLXJlc291cmNlcy1h');
-                        }
-
-                        if (QuickLink == 3) {
+                        } else if (QuickLink == 3) {
                             // ds page
                             linkPrefix = atob('aHR0cHM6Ly9ub21vY2VucmVzb3VyY2VzYS5naXRsYWIuaW8vZHM=');
                         }
