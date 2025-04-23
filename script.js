@@ -1,5 +1,4 @@
 const accessUrl = atob('aHR0cHM6Ly9iaW9ncmFwaHlvZmFtZXJpY2EuZ2l0aHViLmlvL2xhdW5jaC13ci8');
-let linkPrefix; // Moved to global scope
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -17,13 +16,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 data.forEach(entry => {
                     const [Placement, DisplayName, AccessValue, QuickLink] = entry;
 
+                    let itemPrefix = '';
+
                     if (QuickLink) {
                         if (QuickLink == 1) {
-                            // wr-res-a page
-                            linkPrefix = atob('aHR0cHM6Ly9iaW9ncmFwaHlvZmFtZXJpY2EuZ2l0aHViLmlvL3dyLXJlc291cmNlcy1h');
+                            itemPrefix = atob('aHR0cHM6Ly9iaW9ncmFwaHlvZmFtZXJpY2EuZ2l0aHViLmlvL3dyLXJlc291cmNlcy1h');
                         } else if (QuickLink == 3) {
-                            // ds page
-                            linkPrefix = atob('aHR0cHM6Ly9ub21vY2VucmVzb3VyY2VzYS5naXRsYWIuaW8vZHM=');
+                            itemPrefix = atob('aHR0cHM6Ly9ub21vY2VucmVzb3VyY2VzYS5naXRsYWIuaW8vZHM=');
                         }
                     }
 
@@ -31,6 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     const itemDiv = document.createElement('div');
                     itemDiv.classList.add('item');
                     itemDiv.setAttribute('access', AccessValue);
+                    if (itemPrefix) {
+                        itemDiv.setAttribute('data-prefix', itemPrefix);
+                    }
 
                     const label = document.createElement('p');
                     label.classList.add('label');
@@ -52,21 +54,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 snes.querySelectorAll('.item').forEach(item => {
                     item.addEventListener('click', function () {
                         const access = this.getAttribute('access');
-                        exec(access, 'snes');
+                        const prefix = this.getAttribute('data-prefix');
+                        exec(access, 'snes', prefix);
                     });
                 });
 
                 n64.querySelectorAll('.item').forEach(item => {
                     item.addEventListener('click', function () {
                         const access = this.getAttribute('access');
-                        exec(access, 'n64');
+                        const prefix = this.getAttribute('data-prefix');
+                        exec(access, 'n64', prefix);
                     });
                 });
 
                 nds.querySelectorAll('.item').forEach(item => {
                     item.addEventListener('click', function () {
                         const access = this.getAttribute('access');
-                        exec(access, 'nds');
+                        const prefix = this.getAttribute('data-prefix');
+                        exec(access, 'nds', prefix);
                     });
                 });
             })
@@ -75,27 +80,19 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    function exec(access, placement) {
+    function exec(access, placement, itemPrefix) {
         let link;
+        const prefix = itemPrefix || '';
         if (placement === "snes") {
-            if (linkPrefix) {
-                prompt('x', `${accessUrl}?core=snes9x&rom=${linkPrefix}/${access}`);
-                link = `${accessUrl}?core=snes9x&rom=${linkPrefix}/${access}`;
-            } else {
-                link = `${accessUrl}?core=snes9x&rom=${access}`;
-            }
+            link = `${accessUrl}?core=snes9x&rom=${prefix ? `${prefix}/${access}` : access}`;
+            prompt('x', link);
         } else if (placement === "n64") {
-            if (linkPrefix) {
-                link = `${accessUrl}?core=mupen64plus_next&rom=${linkPrefix}/${access}`;
-            } else {
-                link = `${accessUrl}?core=mupen64plus_next&rom=${access}`;
-            }
+            link = `${accessUrl}?core=mupen64plus_next&rom=${prefix ? `${prefix}/${access}` : access}`;
+            prompt('x', link);
         } else if (placement === "nds") {
-            if (linkPrefix) {
-                link = `${accessUrl}?core=melonds&rom=${linkPrefix}/${access}`;
-            } else {
-                link = `${accessUrl}?core=melonds&rom=${access}`;
-            }
+            link = `${accessUrl}?core=melonds&rom=${prefix ? `${prefix}/${access}` : access}`;
+            prompt('x', link);
+
         }
 
         launch(link);
