@@ -85,13 +85,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const prefix = itemPrefix || '';
         if (placement === "snes") {
             link = `${accessUrl}?core=snes9x&rom=${prefix ? `${prefix}/${access}` : access}`;
-            prompt('x', link);
+            // prompt('x', link);
         } else if (placement === "n64") {
             link = `${accessUrl}?core=mupen64plus_next&rom=${prefix ? `${prefix}/${access}` : access}`;
-            prompt('x', link);
+            // prompt('x', link);
         } else if (placement === "nds") {
             link = `${accessUrl}?core=melonds&rom=${prefix ? `${prefix}/${access}` : access}`;
-            prompt('x', link);
+            // prompt('x', link);
 
         }
 
