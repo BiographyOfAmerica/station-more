@@ -3,6 +3,7 @@
     [ "snes", "Game2", "AccessV1alue" ],
     [ "n64", "Game3", "AccessVa1lue" ],
     [ "n64", "Game4", "Access3Value" ],
+    [ "nds", "New Super Mario Bros", "newsupermariobros.nds", 3],
     [ "nds", "Mario Party DS", "marioparty.nds", 3]
 
 ]
