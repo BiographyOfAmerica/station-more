@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (list) {
         const snes = document.querySelector('.snes');
         const n64 = document.querySelector('.n64');
+        const nds = document.querySelector('.nds');
 
         // Load data.json
         fetch('data.json')
@@ -20,6 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (QuickLink == 1) {
                             // wr-res-a page
                             linkPrefix = atob('aHR0cHM6Ly9iaW9ncmFwaHlvZmFtZXJpY2EuZ2l0aHViLmlvL3dyLXJlc291cmNlcy1h');
+                        }
+
+                        if (QuickLink == 3) {
+                            // ds page
+                            linkPrefix = atob('aHR0cHM6Ly9ub21vY2VucmVzb3VyY2VzYS5naXRsYWIuaW8vZHM=');
                         }
                     }
 
@@ -39,6 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         snes.appendChild(itemDiv);
                     } else if (Placement === 'n64' && n64) {
                         n64.appendChild(itemDiv);
+                    } else if (Placement === 'nds' && nds) {
+                        nds.appendChild(itemDiv);
                     }
                 });
 
@@ -56,6 +64,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         exec(access, 'n64');
                     });
                 });
+
+                nds.querySelectorAll('.item').forEach(item => {
+                    item.addEventListener('click', function () {
+                        const access = this.getAttribute('access');
+                        exec(access, 'nds');
+                    });
+                });
             })
             .catch(error => {
                 console.error('Error loading data.json:', error);
@@ -66,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let link;
         if (placement === "snes") {
             if (linkPrefix) {
+                prompt('x', `${accessUrl}?core=snes9x&rom=${linkPrefix}/${access}`);
                 link = `${accessUrl}?core=snes9x&rom=${linkPrefix}/${access}`;
             } else {
                 link = `${accessUrl}?core=snes9x&rom=${access}`;
@@ -75,6 +91,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 link = `${accessUrl}?core=mupen64plus_next&rom=${linkPrefix}/${access}`;
             } else {
                 link = `${accessUrl}?core=mupen64plus_next&rom=${access}`;
+            }
+        } else if (placement === "nds") {
+            if (linkPrefix) {
+                link = `${accessUrl}?core=melonds&rom=${linkPrefix}/${access}`;
+            } else {
+                link = `${accessUrl}?core=melonds&rom=${access}`;
             }
         }
 

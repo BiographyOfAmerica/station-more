@@ -1,7 +1,8 @@
 [
-    [ "snes", "2020", "2020.sfc", 1 ],
+    [ "snes", "Super Baseball 2020  ", "2020.sfc", 1 ],
     [ "snes", "Game2", "AccessV1alue" ],
     [ "n64", "Game3", "AccessVa1lue" ],
-    [ "n64", "Game4", "Access3Value" ]
+    [ "n64", "Game4", "Access3Value" ],
+    [ "nds", "Mario Party DS", "marioparty.nds", 3]
 
 ]

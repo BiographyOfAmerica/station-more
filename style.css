@@ -18,6 +18,10 @@ body {
     border: 3px solid rgba(0, 128, 0, 0.76);
 }
 
+.list .section.nds .item {
+    border: 3px solid rgba(0, 77, 128, 0.76);
+}
+
 .item {
     display: block;
     background-color: #1a1a1a;
