@@ -2,12 +2,19 @@ const accessUrl = atob('aHR0cHM6Ly9iaW9ncmFwaHlvZmFtZXJpY2EuZ2l0aHViLmlvL2xhdW5j
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    if (window.location.href === "about:blank") {
-        console.log("Confirmed Correct Accessing Method");
+    if (window.opener && window.opener !== window) {
+        console.log("Confirmed: Opened via script (likely about:blank)");
     } else {
         alert('You Have Accessed This Site From A Restricted Method, You Are Being Redirected.')
         window.location.href = encodeURI("https://www.google.com/search?q=How to ask a walrus (an animal) out on a date");
-    }    
+    }
+
+    // if (window.location.href === "about:blank") {
+    //     console.log("Confirmed Correct Accessing Method");
+    // } else {
+    //     alert('You Have Accessed This Site From A Restricted Method, You Are Being Redirected.')
+    //     window.location.href = encodeURI("https://www.google.com/search?q=How to ask a walrus (an animal) out on a date");
+    // }    
 
     const list = document.querySelector('.list');
 
