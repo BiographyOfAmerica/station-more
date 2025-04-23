@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (window.location.href === "about:blank") {
         console.log("Confirmed Correct Accessing Method");
     } else {
-        window.location.href = "https://explain.diy/open-as-about-blank";
+        alert('You Have Accessed This Site From A Restricted Method, You Are Being Redirected.')
+        window.location.href = encodeURI("https://www.google.com/search?q=How to ask a walrus (an animal) out on a date");
     }    
 
     const list = document.querySelector('.list');
